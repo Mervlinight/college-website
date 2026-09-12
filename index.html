@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Hub — Студенческий портал</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Фоновый декоративный элемент -->
+  <div class="background-glow"></div>
+
+  <div class="app-shell">
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+
+      <a href="#" class="logo" id="logoButton">
+        <span class="logo-mark">C</span>
+        <span class="logo-text">
+          <strong>COLLEGE</strong>
+          <small>STUDENT PORTAL</small>
+        </span>
+      </a>
+
+      <nav class="top-navigation" id="topNavigation">
+        <!-- Категории будут создаваться через JavaScript -->
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" id="searchButton" aria-label="Поиск">
+          <span>⌕</span>
+        </button>
+
+        <button class="login-button" id="headerLoginButton">
+          Войти
+          <span>↗</span>
+        </button>
+
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Открыть меню">
+          ☰
+        </button>
+      </div>
+
+    </header>
+
+    <!-- ================= MAIN LAYOUT ================= -->
+    <main class="main-layout">
+
+      <!-- Левая панель с подкатегориями -->
+      <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-heading">
+          <span class="eyebrow">РАЗДЕЛ</span>
+          <h2 id="sidebarTitle">Главная</h2>
+        </div>
+
+        <nav class="sub-navigation" id="subNavigation">
+          <!-- Подкатегории будут создаваться через JavaScript -->
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="status-dot"></div>
+          <div>
+            <strong>College Hub</strong>
+            <span>Информационный портал</span>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Основной контент -->
+      <section class="content-area">
+
+        <!-- Хлебные крошки -->
+        <div class="breadcrumbs" id="breadcrumbs">
+          Главная <span>/</span> Обзор
+        </div>
+
+        <!-- Контент текущей подкатегории -->
+        <div class="page-content" id="pageContent">
+          <!-- Содержимое будет создаваться через JavaScript -->
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <span>© 2026 College Hub</span>
+      <span>Учебный проект студентов</span>
+    </footer>
+
+  </div>
+
+  <!-- Модальное окно поиска -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal-window search-modal">
+      <button class="modal-close" data-close-modal="searchModal">×</button>
+
+      <span class="eyebrow">ПОИСК ПО ПОРТАЛУ</span>
+      <h2>Что вы ищете?</h2>
+
+      <div class="search-input-wrapper">
+        <span>⌕</span>
+        <input
+          type="text"
+          id="globalSearchInput"
+          placeholder="Например: расписание, МПС, преподаватель..."
+        />
+      </div>
+
+      <div class="search-results" id="searchResults">
+        Начните вводить запрос, чтобы выполнить поиск.
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно входа -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-window login-modal">
+      <button class="modal-close" data-close-modal="loginModal">×</button>
+
+      <span class="eyebrow">ЛИЧНЫЙ ДОСТУП</span>
+      <h2>Вход в портал</h2>
+      <p class="modal-description">
+        Войдите, чтобы получить доступ к персональным функциям.
+      </p>
+
+      <form id="loginForm" class="login-form">
+
+        <label for="loginInput">Логин</label>
+        <input
+          type="text"
+          id="loginInput"
+          placeholder="Введите логин"
+          required
+        />
+
+        <label for="passwordInput">Пароль</label>
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Введите пароль"
+          required
+        />
+
+        <p class="form-note">
+          Примечание: в демонстрационной версии данные не отправляются на сервер.
+        </p>
+
+        <button type="submit" class="primary-button full-width">
+          Войти
+          <span>→</span>
+        </button>
+
+        <button type="button" class="secondary-button full-width" id="guestLoginButton">
+          Войти без регистрации
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
