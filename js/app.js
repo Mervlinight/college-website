@@ -17,6 +17,11 @@ const navigationData = {
         id: "specialties",
         title: "Специальности",
         content: renderSpecialties
+      },
+      {
+        id: "additional",
+        title: "Дополнительно",
+        content: renderAdditional
       }
     ]
   },
@@ -243,11 +248,16 @@ function renderAbout() {
       <div class="hero-content">
         <span class="hero-label">ИНФОРМАЦИОННЫЙ ПОРТАЛ КОЛЛЕДЖА</span>
 
-        <h1>Добро пожаловать<br>на сайт колледжа</h1>
+        <h1>
+          Добро пожаловать<br />
+          на сайт Таврического колледжа КФУ им. Вернадского
+          </h1>
 
         <p>
-          Здесь собрана информация об учебной жизни, преподавателях,
-          расписании, мероприятиях и возможностях для студентов.
+          Информационный портал Таврического колледжа
+          Крымского федерального университета им. В. И. Вернадского.
+          Здесь собрана информация об образовательных программах,
+          учебном процессе, преподавателях, новостях и студенческой жизни.
         </p>
 
         <div class="hero-actions">
@@ -326,19 +336,18 @@ function renderAbout() {
         </div>
       </div>
 
-      <div class="stats-grid">
         <div class="stat-card">
-          <span class="stat-number">25+</span>
-          <span class="stat-label">Образовательных направлений</span>
+          <span class="stat-number">8</span>
+          <span class="stat-label">Основных специальностей</span>
         </div>
 
         <div class="stat-card">
-          <span class="stat-number">1000+</span>
+          <span class="stat-number">900+</span>
           <span class="stat-label">Студентов</span>
         </div>
 
         <div class="stat-card">
-          <span class="stat-number">50+</span>
+          <span class="stat-number">30+</span>
           <span class="stat-label">Преподавателей</span>
         </div>
       </div>
@@ -346,59 +355,527 @@ function renderAbout() {
   `;
 }
 
+function renderAdditional() {
+  return `
+    <div class="additional-page">
+
+      <!-- Заголовок страницы -->
+      <section class="additional-intro">
+        <span class="additional-eyebrow">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</span>
+
+        <h1>Таврический колледж</h1>
+
+        <p>
+          История, направления подготовки, возможности для студентов
+          и контактные сведения колледжа Крымского федерального университета
+          имени В. И. Вернадского.
+        </p>
+      </section>
+
+
+      <!-- Краткие факты -->
+      <section class="additional-facts">
+        <article class="additional-fact">
+          <strong>1995</strong>
+          <span>Год основания</span>
+        </article>
+
+        <article class="additional-fact">
+          <strong>900+</strong>
+          <span>Студентов</span>
+        </article>
+
+        <article class="additional-fact">
+          <strong>30+</strong>
+          <span>Преподавателей</span>
+        </article>
+
+        <article class="additional-fact">
+          <strong>СПО</strong>
+          <span>Уровень образования</span>
+        </article>
+      </section>
+
+
+      <!-- История колледжа -->
+      <section class="additional-section">
+        <div class="additional-section-heading">
+          <span class="additional-label">ИСТОРИЯ</span>
+          <h2>История развития</h2>
+          <p>
+            Колледж прошёл несколько этапов становления и развития,
+            сохранив направленность на подготовку востребованных специалистов.
+          </p>
+        </div>
+
+        <div class="additional-history">
+
+          <article class="additional-history-item">
+            <div class="additional-history-year">1995</div>
+
+            <div class="additional-history-card">
+              <span>01</span>
+              <h3>Основание колледжа</h3>
+              <p>
+                Колледж был создан как «Открытый Таврический колледж»
+                при Университете экономики и управления.
+              </p>
+            </div>
+          </article>
+
+          <article class="additional-history-item">
+            <div class="additional-history-year">2000-е</div>
+
+            <div class="additional-history-card">
+              <span>02</span>
+              <h3>Расширение образовательных возможностей</h3>
+              <p>
+                Развивались образовательные программы, направления подготовки
+                и сотрудничество с организациями региона.
+              </p>
+            </div>
+          </article>
+
+          <article class="additional-history-item">
+            <div class="additional-history-year">2014–2015</div>
+
+            <div class="additional-history-card">
+              <span>03</span>
+              <h3>Вхождение в структуру КФУ</h3>
+              <p>
+                Колледж прошёл этап реорганизации и вошёл в структуру
+                Крымского федерального университета имени В. И. Вернадского
+                как подразделение среднего профессионального образования.
+              </p>
+            </div>
+          </article>
+
+          <article class="additional-history-item">
+            <div class="additional-history-year">Сегодня</div>
+
+            <div class="additional-history-card">
+              <span>04</span>
+              <h3>Современное образование</h3>
+              <p>
+                Сегодня колледж предлагает направления подготовки,
+                ориентированные на получение профессиональных знаний
+                и практических компетенций.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+
+      <!-- Направления подготовки -->
+      <section class="additional-section">
+        <div class="additional-section-heading">
+          <span class="additional-label">НАПРАВЛЕНИЯ</span>
+          <h2>Основные области подготовки</h2>
+          <p>
+            В колледже представлены различные направления, связанные
+            с медициной, технологиями, экономикой, сервисом и творчеством.
+          </p>
+        </div>
+
+        <div class="additional-directions">
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">01</div>
+            <h3>Информационные технологии</h3>
+            <p>
+              Компьютерные системы, программирование и цифровые технологии.
+            </p>
+          </article>
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">02</div>
+            <h3>Экономика и финансы</h3>
+            <p>
+              Финансы, страхование, управление и экономическая деятельность.
+            </p>
+          </article>
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">03</div>
+            <h3>Логистика</h3>
+            <p>
+              Организация перевозок, управление поставками
+              и операционная деятельность.
+            </p>
+          </article>
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">04</div>
+            <h3>Творческие направления</h3>
+            <p>
+              Дизайн, издательское дело и развитие творческих навыков.
+            </p>
+          </article>
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">05</div>
+            <h3>Туризм и гостеприимство</h3>
+            <p>
+              Организация путешествий, гостиничное дело и сервис.
+            </p>
+          </article>
+
+          <article class="additional-direction-card">
+            <div class="additional-card-number">06</div>
+            <h3>Медицина</h3>
+            <p>
+              Сестринское дело, фармация и стоматологическое направление.
+            </p>
+          </article>
+
+        </div>
+
+        <button
+          class="additional-specialties-button"
+          onclick="selectSubcategory('specialties')"
+        >
+          Перейти к специальностям
+          <span>→</span>
+        </button>
+      </section>
+
+
+      <!-- Студенческие возможности -->
+      <section class="additional-section">
+        <div class="additional-section-heading">
+          <span class="additional-label">СТУДЕНЧЕСКАЯ ЖИЗНЬ</span>
+          <h2>Возможности для студентов</h2>
+          <p>
+            Учёба в колледже включает не только освоение программы,
+            но и участие в проектах, мероприятиях и общественной жизни.
+          </p>
+        </div>
+
+        <div class="additional-benefits">
+
+          <article class="additional-benefit-card">
+            <div class="additional-benefit-icon">↗</div>
+            <h3>Практические занятия</h3>
+            <p>
+              Получение профессиональных навыков и практического опыта.
+            </p>
+          </article>
+
+          <article class="additional-benefit-card">
+            <div class="additional-benefit-icon">✦</div>
+            <h3>Проекты и конференции</h3>
+            <p>
+              Участие в образовательных, исследовательских и творческих проектах.
+            </p>
+          </article>
+
+          <article class="additional-benefit-card">
+            <div class="additional-benefit-icon">◌</div>
+            <h3>Мероприятия</h3>
+            <p>
+              Экскурсии, встречи, конкурсы и другие события колледжа.
+            </p>
+          </article>
+
+          <article class="additional-benefit-card">
+            <div class="additional-benefit-icon">+</div>
+            <h3>Общение и развитие</h3>
+            <p>
+              Развитие командных навыков, коммуникации и самостоятельности.
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+
+      <!-- Контакты -->
+      <section class="additional-section additional-official-section">
+        <div class="additional-section-heading">
+          <span class="additional-label">КОНТАКТЫ</span>
+          <h2>Официальные сведения</h2>
+          <p>
+            Контактная информация колледжа для студентов, родителей
+            и абитуриентов.
+          </p>
+        </div>
+
+        <div class="additional-official-layout">
+
+          <div class="additional-contact-card">
+
+            <div class="additional-contact-row">
+              <span>Полное наименование</span>
+              <strong>
+                Таврический колледж Крымского федерального университета
+                имени В. И. Вернадского
+              </strong>
+            </div>
+
+            <div class="additional-contact-row">
+              <span>Адрес</span>
+              <strong>
+                295034, Республика Крым, г. Симферополь,
+                ул. Киевская, 116Б
+              </strong>
+            </div>
+
+            <div class="additional-contact-row">
+              <span>Руководитель</span>
+              <strong>Гавриленко Юлия Михайловна</strong>
+            </div>
+
+            <div class="additional-contact-row">
+              <span>Телефон</span>
+              <a href="tel:+73652545286">
+                +7 (3652) 54-52-86
+              </a>
+            </div>
+
+            <div class="additional-contact-row">
+              <span>Email</span>
+              <a href="mailto:Kolledzh.tnu@mail.ru">
+                Kolledzh.tnu@mail.ru
+              </a>
+            </div>
+
+          </div>
+
+          <div class="additional-links-card">
+            <h3>Полезные ссылки</h3>
+
+            <a
+              href="https://college.cfuv.ru/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Официальный сайт</span>
+              <span>↗</span>
+            </a>
+
+            <a
+              href="https://college.cfuv.ru/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Сведения об организации</span>
+              <span>↗</span>
+            </a>
+
+            <a
+              href="https://college.cfuv.ru/abiturientam/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Абитуриентам</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="additional-note">
+          Актуальные сведения о лицензии, государственной аккредитации,
+          правилах приёма и образовательных программах рекомендуется
+          уточнять на официальном сайте колледжа.
+        </div>
+      </section>
+
+    </div>
+  `;
+}
+
 // =========================================
 // 9. СПЕЦИАЛЬНОСТИ
 // =========================================
+const specialtiesData = [
+  {
+    number: "01",
+    code: "34.02.01",
+    title: "Сестринское дело",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Медицинская сестра / медицинский брат",
+    cost: "от 90 000 ₽",
+    description:
+      "Специальность готовит медицинских сестер и медицинских братьев для работы в учреждениях здравоохранения Российской Федерации. Студенты изучают основы ухода за пациентами, медицинскую этику, профилактику заболеваний, оказание первой помощи и организацию лечебно-профилактических мероприятий."
+  },
+  {
+    number: "02",
+    code: "33.02.01",
+    title: "Фармация",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Фармацевт",
+    cost: "от 90 000 ₽",
+    description:
+      "Подготовка фармацевтов, работников аптек и специалистов по работе с лекарственными препаратами. Обучение включает изучение фармакологии, технологии изготовления лекарственных средств, правил хранения и отпуска медикаментов, а также основ фармацевтической деятельности."
+  },
+  {
+    number: "03",
+    code: "54.02.01",
+    title: "Дизайн (по отраслям)",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Дизайнер",
+    cost: "от 125 400 ₽",
+    description:
+      "Подготовка специалистов со знанием прикладных компьютерных программ, которые будут заниматься дизайном в различных его проявлениях и отраслях. Студенты осваивают композицию, цветоведение, проектирование, графические редакторы и разработку визуальных решений."
+  },
+  {
+    number: "04",
+    code: "09.02.01",
+    title: "Компьютерные системы и комплексы",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Техник по компьютерным системам",
+    cost: "от 79 500 ₽",
+    description:
+      "Подготовка специалистов в области IT и обслуживания компьютерной техники. Студенты изучают строение персональных компьютеров, периферийных устройств, компьютерных сетей, основы программирования, диагностику неисправностей и техническое обслуживание компьютерных систем."
+  },
+  {
+    number: "05",
+    code: "38.02.06",
+    title: "Финансы",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Финансист",
+    cost: "от 76 200 ₽",
+    description:
+      "Подготовка специалистов, которые будут заниматься организацией и осуществлением деятельности финансовых, планово-экономических и контрольных подразделений организаций. В процессе обучения изучаются финансовое планирование, бюджетирование, налогообложение, бухгалтерский учет и анализ финансовых показателей."
+  },
+  {
+    number: "06",
+    code: "38.02.03",
+    title: "Операционная деятельность в логистике",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Операционный логист",
+    cost: "от 76 200 ₽",
+    description:
+      "Подготовка специалистов для операционной деятельности логистических компаний. Студенты знакомятся с особенностями перевозок, складской деятельности, транспортировки и хранения товаров, оформлением документации, планированием поставок и организацией движения материальных потоков."
+  },
+  {
+    number: "07",
+    code: "31.02.05",
+    title: "Стоматология ортопедическая",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Зубной техник",
+    cost: "от 100 000 ₽",
+    description:
+      "Подготовка зубных техников, которые смогут изготавливать съемные пластиночные протезы, несъемные протезы, челюстно-лицевые аппараты и другие ортопедические конструкции. Обучение включает основы анатомии, материаловедения, моделирования и технологии изготовления зубных протезов."
+  },
+  {
+    number: "08",
+    code: "38.02.02",
+    title: "Страховое дело (по отраслям)",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Специалист страхового дела",
+    cost: "от 76 200 ₽",
+    description:
+      "Подготовка специалистов для работы в страховых компаниях. Выпускники могут заниматься оформлением страховых договоров, консультированием клиентов, сопровождением страховых продуктов, расчетом страховых выплат и организацией работы с документацией."
+  },
+  {
+    number: "09",
+    code: "42.02.02",
+    title: "Издательское дело",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Специалист издательского дела",
+    cost: "от 79 500 ₽",
+    description:
+      "Специалисты издательского дела среднего звена применяют профессиональные умения и навыки в сфере распространения электронной и печатной продукции. Студенты изучают подготовку текстов и изображений, верстку, редакторскую работу, издательские процессы и современные цифровые технологии."
+  },
+  {
+    number: "10",
+    code: "43.02.16",
+    title: "Туризм и гостеприимство",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Специалист по туризму и гостеприимству",
+    cost: "от 76 200 ₽",
+    description:
+      "Программа готовит специалистов для сферы туризма, гостиничного бизнеса и гостеприимства. После обучения выпускники могут работать специалистами по гостеприимству, менеджерами по туризму, организаторами путешествий, администраторами гостиниц и экскурсоводами."
+  },
+  {
+    number: "11",
+    code: "09.02.11",
+    title: "Разработка и управление программным обеспечением",
+    category: "Подготовка специалистов | Очная",
+    qualification: "Специалист по разработке программного обеспечения",
+    cost: "Уточняется",
+    description:
+      "Подготовка специалистов в области создания, сопровождения и управления программным обеспечением. Студенты изучают языки программирования, базы данных, алгоритмы, тестирование, проектирование информационных систем и основы управления IT-проектами. Выпускники могут работать программистами, администраторами баз данных и специалистами по компьютерным системам."
+  }
+];
 
 function renderSpecialties() {
-  const specialties = [
-    {
-      number: "01",
-      title: "Информационные системы и программирование",
-      description:
-        "Разработка программного обеспечения, веб-приложений и информационных систем."
-    },
-    {
-      number: "02",
-      title: "Сетевое и системное администрирование",
-      description:
-        "Настройка компьютерных сетей, серверов и обеспечение информационной безопасности."
-    },
-    {
-      number: "03",
-      title: "Дизайн и компьютерная графика",
-      description:
-        "Создание визуальных материалов, интерфейсов и цифрового контента."
-    },
-    {
-      number: "04",
-      title: "Экономика и бухгалтерский учёт",
-      description:
-        "Работа с финансовой информацией, учётом и экономическими процессами."
-    }
-  ];
-
   return `
     <div class="text-block">
       <span class="pill">ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ</span>
+
       <h1>Специальности</h1>
+
       <p>
-        В колледже представлены различные направления подготовки.
-        Ниже приведён пример оформления списка специальностей.
+        Выберите интересующее направление подготовки, чтобы узнать
+        подробнее о квалификации, содержании обучения и стоимости
+        образовательной программы.
       </p>
     </div>
 
     <div class="specialties-list">
-      ${specialties
+      ${specialtiesData
         .map(
           (item) => `
-            <article class="specialty-item">
-              <div class="specialty-number">${item.number}</div>
-              <div>
+            <details class="specialty-details">
+              <summary class="specialty-item">
+                <div class="specialty-number">${item.number}</div>
+
+                <div class="specialty-main-info">
+                  <span class="specialty-code">${item.code}</span>
+
+                  <h3>${item.title}</h3>
+
+                  <p>${item.category}</p>
+                </div>
+
+                <div class="specialty-cost-preview">
+                  <span>Стоимость</span>
+                  <strong>${item.cost}</strong>
+                </div>
+
+                <span class="specialty-toggle">+</span>
+              </summary>
+
+              <div class="specialty-reference">
+                <div class="reference-header">
+                  <span class="eyebrow">
+                    СПРАВКА О СПЕЦИАЛЬНОСТИ
+                  </span>
+
+                  <span class="reference-code">
+                    ${item.code}
+                  </span>
+                </div>
+
                 <h3>${item.title}</h3>
-                <p>${item.description}</p>
+
+                <div class="reference-row">
+                  <strong>Форма обучения</strong>
+                  <span>Очная</span>
+                </div>
+
+                <div class="reference-row">
+                  <strong>Квалификация</strong>
+                  <span>${item.qualification}</span>
+                </div>
+
+                <div class="reference-row">
+                  <strong>Стоимость обучения</strong>
+                  <span class="reference-price">${item.cost}</span>
+                </div>
+
+                <div class="reference-description">
+                  <strong>Описание направления</strong>
+                  <p>${item.description}</p>
+                </div>
+
               </div>
-            </article>
+            </details>
           `
         )
         .join("")}
