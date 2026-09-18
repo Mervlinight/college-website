@@ -19,9 +19,19 @@ const navigationData = {
         content: renderSpecialties
       },
       {
+        id: "admission",
+        title: "Поступление",
+        content: renderAdmission
+      },
+      {
         id: "additional",
         title: "Дополнительно",
         content: renderAdditional
+      },
+      {
+        id: "album",
+        title: "Альбом",
+        content: renderAlbum
       }
     ]
   },
@@ -236,11 +246,376 @@ function renderCurrentContent() {
   pageContent.style.animation = "pageFadeIn 0.35s ease";
 
   pageContent.innerHTML = subcategory.content();
+
+  if (currentSubcategory === "admission") {
+    initAdmissionCalculator();
+  }
 }
 
 // =========================================
 // 8. ГЛАВНАЯ / О КОЛЛЕДЖЕ
 // =========================================
+
+
+// =========================================
+// 8.1. АЛЬБОМ — ДАННЫЕ ИНТЕРАКТИВНОЙ ГАЛЕРЕИ
+// =========================================
+
+const collegeAlbumData = {
+  college: {
+    title: "Жизнь колледжа",
+    eyebrow: "КОЛЛЕДЖ В КАДРЕ",
+    description:
+      "Фотографии мероприятий, студенческой жизни, встреч, праздников и других моментов, которые рассказывают о колледже через его людей.",
+    cover: "assets/images/albums/college/01.jpg",
+    accent: "campus",
+    photos: Array.from({ length: 12 }, (_, index) => ({
+      src: `assets/images/albums/college/${String(index + 1).padStart(2, "0")}.jpg`,
+      title: `Жизнь колледжа — кадр ${index + 1}`,
+      caption: "Мероприятия, встречи, студенческие проекты и яркие события колледжа."
+    }))
+  },
+  interior: {
+    title: "Колледж изнутри",
+    eyebrow: "ПРОСТРАНСТВО КОЛЛЕДЖА",
+    description:
+      "Фотографии учебных кабинетов, лабораторий, коридоров, зон для студентов и других пространств Таврического колледжа.",
+    cover: "assets/images/albums/interior/01.jpg",
+    accent: "interior",
+    photos: Array.from({ length: 12 }, (_, index) => ({
+      src: `assets/images/albums/interior/${String(index + 1).padStart(2, "0")}.jpg`,
+      title: `Колледж изнутри — кадр ${index + 1}`,
+      caption: "Кабинеты, учебные пространства, коридоры и другие элементы внутренней жизни колледжа."
+    }))
+  }
+};
+
+let collegeAlbumCurrent = null;
+let collegeAlbumPage = 1;
+const collegeAlbumPerPage = 4;
+let collegeAlbumLightboxIndex = 0;
+
+function renderAlbum() {
+  return `
+    <section class="college-album-page">
+      <div class="college-album-hero">
+        <div class="college-album-hero-grid"></div>
+        <div class="college-album-hero-content">
+          <span class="college-album-eyebrow">ВИЗУАЛЬНАЯ ИСТОРИЯ</span>
+          <h1>Альбом колледжа</h1>
+          <p>
+            Два визуальных пространства, чтобы увидеть Таврический колледж
+            таким, какой он есть: в событиях и в деталях его ежедневной жизни.
+          </p>
+        </div>
+        <div class="college-album-hero-mark">TK</div>
+      </div>
+
+      <div class="college-album-section-heading">
+        <div>
+          <span class="college-album-label">КОЛЛЕКЦИИ</span>
+          <h2>Выберите альбом</h2>
+        </div>
+        <div class="college-album-count">2 коллекции</div>
+      </div>
+
+      <div class="college-album-collections">
+        ${Object.entries(collegeAlbumData)
+          .map(([id, album], index) => {
+            const count = album.photos.length;
+            return `
+              <button
+                type="button"
+                class="college-album-collection-card ${album.accent}"
+                onclick="openCollegeAlbum('${id}')"
+                aria-label="Открыть альбом ${album.title}"
+              >
+                <div class="college-album-cover">
+                  <div class="college-album-cover-fallback">
+                    <span>${id === "college" ? "EVENTS" : "SPACE"}</span>
+                  </div>
+                  <img
+                    src="${album.cover}"
+                    alt="Обложка альбома «${album.title}»"
+                    onerror="this.style.display='none'"
+                  />
+                  <div class="college-album-cover-shade"></div>
+                  <span class="college-album-cover-number">0${index + 1}</span>
+                  <span class="college-album-cover-count">${count} фото</span>
+                </div>
+                <div class="college-album-collection-body">
+                  <div class="college-album-collection-meta">
+                    <span>${album.eyebrow}</span>
+                    <span>ОТКРЫТЬ ↗</span>
+                  </div>
+                  <h3>${album.title}</h3>
+                  <p>${album.description}</p>
+                </div>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+
+      <div class="college-album-note">
+        <span class="college-album-note-icon">✦</span>
+        <p>
+          Внутри каждого альбома фотографии распределены по страницам —
+          по 4 изображения на каждой. Нажмите на снимок, чтобы открыть его
+          крупнее.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+function openCollegeAlbum(albumId) {
+  if (!collegeAlbumData[albumId]) return;
+
+  collegeAlbumCurrent = albumId;
+  collegeAlbumPage = 1;
+  collegeAlbumRenderGallery();
+}
+
+function backToCollegeAlbums() {
+  collegeAlbumCurrent = null;
+  collegeAlbumPage = 1;
+  collegeAlbumCloseLightbox();
+  renderCurrentContent();
+}
+
+function collegeAlbumRenderGallery() {
+  const album = collegeAlbumData[collegeAlbumCurrent];
+  if (!album) {
+    renderCurrentContent();
+    return;
+  }
+
+  const totalPages = Math.ceil(album.photos.length / collegeAlbumPerPage);
+  const start = (collegeAlbumPage - 1) * collegeAlbumPerPage;
+  const visiblePhotos = album.photos.slice(start, start + collegeAlbumPerPage);
+
+  breadcrumbs.innerHTML = `
+    Главная <span>/</span> Альбом <span>/</span> ${album.title}
+  `;
+
+  pageContent.style.animation = "none";
+  pageContent.offsetHeight;
+  pageContent.style.animation = "pageFadeIn 0.35s ease";
+
+  pageContent.innerHTML = `
+    <section class="college-album-gallery ${album.accent}">
+      <div class="college-album-gallery-top">
+        <button type="button" class="college-album-back" onclick="backToCollegeAlbums()">
+          <span>←</span>
+          Все альбомы
+        </button>
+
+        <div class="college-album-gallery-title-wrap">
+          <span class="college-album-label">${album.eyebrow}</span>
+          <h1>${album.title}</h1>
+          <p>${album.description}</p>
+        </div>
+
+        <div class="college-album-page-indicator">
+          <span>${String(collegeAlbumPage).padStart(2, "0")}</span>
+          <i></i>
+          <span>${String(totalPages).padStart(2, "0")}</span>
+        </div>
+      </div>
+
+      <div class="college-album-progress" aria-hidden="true">
+        <span style="width: ${(collegeAlbumPage / totalPages) * 100}%"></span>
+      </div>
+
+      <div class="college-album-gallery-grid">
+        ${visiblePhotos
+          .map((photo, offset) => {
+            const absoluteIndex = start + offset;
+            return `
+              <button
+                type="button"
+                class="college-album-photo-card"
+                onclick="collegeAlbumOpenLightbox(${absoluteIndex})"
+              >
+                <span class="college-album-photo-image">
+                  <span class="college-album-photo-fallback">
+                    <span>${String(absoluteIndex + 1).padStart(2, "0")}</span>
+                  </span>
+                  <img
+                    src="${photo.src}"
+                    alt="${photo.title}"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <span class="college-album-photo-overlay"></span>
+                  <span class="college-album-photo-zoom">↗</span>
+                  <span class="college-album-photo-index">${String(absoluteIndex + 1).padStart(2, "0")}</span>
+                </span>
+                <span class="college-album-photo-info">
+                  <strong>${photo.title}</strong>
+                  <span>${photo.caption}</span>
+                </span>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+
+      <div class="college-album-gallery-bottom">
+        <div class="college-album-page-caption">
+          <strong>Страница ${collegeAlbumPage}</strong>
+          <span>по 4 фотографии</span>
+        </div>
+
+        <div class="college-album-pagination">
+          <button
+            type="button"
+            class="college-album-page-button"
+            onclick="collegeAlbumGoToPage(${collegeAlbumPage - 1})"
+            ${collegeAlbumPage === 1 ? "disabled" : ""}
+            aria-label="Предыдущая страница"
+          >
+            ←
+          </button>
+
+          ${Array.from({ length: totalPages }, (_, index) => {
+            const pageNumber = index + 1;
+            return `
+              <button
+                type="button"
+                class="college-album-page-number ${pageNumber === collegeAlbumPage ? "active" : ""}"
+                onclick="collegeAlbumGoToPage(${pageNumber})"
+              >${pageNumber}</button>
+            `;
+          }).join("")}
+
+          <button
+            type="button"
+            class="college-album-page-button"
+            onclick="collegeAlbumGoToPage(${collegeAlbumPage + 1})"
+            ${collegeAlbumPage === totalPages ? "disabled" : ""}
+            aria-label="Следующая страница"
+          >
+            →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="college-album-lightbox" id="collegeAlbumLightbox" aria-hidden="true">
+      <div class="college-album-lightbox-backdrop" onclick="collegeAlbumCloseLightbox()"></div>
+      <div class="college-album-lightbox-window" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+        <button type="button" class="college-album-lightbox-close" onclick="collegeAlbumCloseLightbox()" aria-label="Закрыть">×</button>
+        <button type="button" class="college-album-lightbox-arrow prev" onclick="collegeAlbumLightboxMove(-1)" aria-label="Предыдущая фотография">←</button>
+        <figure>
+          <div class="college-album-lightbox-image-wrap">
+            <img id="collegeAlbumLightboxImage" src="" alt="" />
+            <div class="college-album-lightbox-fallback" id="collegeAlbumLightboxFallback"></div>
+          </div>
+          <figcaption>
+            <span class="college-album-lightbox-counter" id="collegeAlbumLightboxCounter"></span>
+            <strong id="collegeAlbumLightboxTitle"></strong>
+            <p id="collegeAlbumLightboxCaption"></p>
+          </figcaption>
+        </figure>
+        <button type="button" class="college-album-lightbox-arrow next" onclick="collegeAlbumLightboxMove(1)" aria-label="Следующая фотография">→</button>
+      </div>
+    </div>
+  `;
+
+  document.querySelectorAll(".college-album-lightbox").forEach((node) => {
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") collegeAlbumLightboxMove(-1);
+      if (event.key === "ArrowRight") collegeAlbumLightboxMove(1);
+    });
+  });
+}
+
+function collegeAlbumGoToPage(page) {
+  const album = collegeAlbumData[collegeAlbumCurrent];
+  if (!album) return;
+
+  const totalPages = Math.ceil(album.photos.length / collegeAlbumPerPage);
+  if (page < 1 || page > totalPages) return;
+
+  collegeAlbumPage = page;
+  collegeAlbumCloseLightbox();
+  collegeAlbumRenderGallery();
+  pageContent.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function collegeAlbumOpenLightbox(index) {
+  const album = collegeAlbumData[collegeAlbumCurrent];
+  if (!album || !album.photos[index]) return;
+
+  collegeAlbumLightboxIndex = index;
+  const lightbox = document.getElementById("collegeAlbumLightbox");
+  if (!lightbox) return;
+
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.classList.add("college-album-modal-open");
+  collegeAlbumUpdateLightbox();
+  lightbox.focus();
+}
+
+function collegeAlbumUpdateLightbox() {
+  const album = collegeAlbumData[collegeAlbumCurrent];
+  const photo = album?.photos[collegeAlbumLightboxIndex];
+  if (!photo) return;
+
+  const image = document.getElementById("collegeAlbumLightboxImage");
+  const fallback = document.getElementById("collegeAlbumLightboxFallback");
+  const counter = document.getElementById("collegeAlbumLightboxCounter");
+  const title = document.getElementById("collegeAlbumLightboxTitle");
+  const caption = document.getElementById("collegeAlbumLightboxCaption");
+
+  if (image) {
+    image.src = photo.src;
+    image.alt = photo.title;
+    image.style.display = "block";
+    image.onerror = () => {
+      image.style.display = "none";
+      if (fallback) fallback.classList.add("visible");
+    };
+    image.onload = () => {
+      if (fallback) fallback.classList.remove("visible");
+    };
+  }
+
+  if (fallback) {
+    fallback.textContent = String(collegeAlbumLightboxIndex + 1).padStart(2, "0");
+  }
+
+  if (counter) {
+    counter.textContent = `${String(collegeAlbumLightboxIndex + 1).padStart(2, "0")} / ${String(album.photos.length).padStart(2, "0")}`;
+  }
+  if (title) title.textContent = photo.title;
+  if (caption) caption.textContent = photo.caption;
+}
+
+function collegeAlbumLightboxMove(direction) {
+  const album = collegeAlbumData[collegeAlbumCurrent];
+  if (!album) return;
+
+  collegeAlbumLightboxIndex =
+    (collegeAlbumLightboxIndex + direction + album.photos.length) % album.photos.length;
+
+  collegeAlbumUpdateLightbox();
+}
+
+function collegeAlbumCloseLightbox() {
+  const lightbox = document.getElementById("collegeAlbumLightbox");
+  if (!lightbox) {
+    document.body.classList.remove("college-album-modal-open");
+    return;
+  }
+
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("college-album-modal-open");
+}
 
 function renderAbout() {
   return `
@@ -376,7 +751,7 @@ function renderAdditional() {
       <!-- Краткие факты -->
       <section class="additional-facts">
         <article class="additional-fact">
-          <strong>1995</strong>
+          <strong>2011</strong>
           <span>Год основания</span>
         </article>
 
@@ -386,7 +761,7 @@ function renderAdditional() {
         </article>
 
         <article class="additional-fact">
-          <strong>30+</strong>
+          <strong>45+</strong>
           <span>Преподавателей</span>
         </article>
 
@@ -398,75 +773,104 @@ function renderAdditional() {
 
 
       <!-- История колледжа -->
-      <section class="additional-section">
+      <section class="additional-section history-section">
         <div class="additional-section-heading">
           <span class="additional-label">ИСТОРИЯ</span>
-          <h2>История развития</h2>
+          <h2>История Таврического колледжа</h2>
           <p>
-            Колледж прошёл несколько этапов становления и развития,
-            сохранив направленность на подготовку востребованных специалистов.
+            История колледжа берет начало в мае 2011 года и связана с развитием
+            среднего профессионального образования в Крыму.
           </p>
         </div>
 
         <div class="additional-history">
-
           <article class="additional-history-item">
-            <div class="additional-history-year">1995</div>
-
-            <div class="additional-history-card">
-              <span>01</span>
-              <h3>Основание колледжа</h3>
-              <p>
-                Колледж был создан как «Открытый Таврический колледж»
-                при Университете экономики и управления.
-              </p>
-            </div>
+            <div class="additional-history-year">Май 2011</div>
+            <details class="history-details">
+              <summary class="additional-history-card">
+                <div class="history-card-content">
+                  <span class="history-number">01</span>
+                  <h3>Основание колледжа</h3>
+                  <p class="history-preview">Колледж был создан по инициативе руководства Таврического национального университета имени В. И. Вернадского.</p>
+                </div>
+                <span class="history-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="history-expanded">
+                <p>История Таврического колледжа берет начало в мае 2011 года. Колледж был создан по инициативе ректора Таврического национального университета имени В. И. Вернадского Николая Васильевича Багрова и первого проректора университета Евгения Николаевича Чуяна.</p>
+                <p>Создание колледжа было направлено на развитие среднего профессионального образования и предоставление выпускникам основного общего образования возможности получить профессиональную подготовку с перспективой дальнейшего обучения в университете.</p>
+              </div>
+            </details>
           </article>
 
           <article class="additional-history-item">
-            <div class="additional-history-year">2000-е</div>
-
-            <div class="additional-history-card">
-              <span>02</span>
-              <h3>Расширение образовательных возможностей</h3>
-              <p>
-                Развивались образовательные программы, направления подготовки
-                и сотрудничество с организациями региона.
-              </p>
-            </div>
+            <div class="additional-history-year">2011</div>
+            <details class="history-details">
+              <summary class="additional-history-card">
+                <div class="history-card-content">
+                  <span class="history-number">02</span>
+                  <h3>Первые направления подготовки</h3>
+                  <p class="history-preview">На начальном этапе обучение велось по техническим, информационным, экономическим и туристическим направлениям.</p>
+                </div>
+                <span class="history-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="history-expanded">
+                <p>На начальном этапе подготовка велась по техническим, информационным, экономическим и туристическим направлениям. Среди первых специальностей были «Компьютерные системы и комплексы», «Программирование в компьютерных системах», «Аналитический контроль качества химических соединений», «Операционная деятельность в логистике», «Финансы» и «Туризм».</p>
+              </div>
+            </details>
           </article>
 
           <article class="additional-history-item">
-            <div class="additional-history-year">2014–2015</div>
+            <div class="additional-history-year">2014</div>
+            <details class="history-details">
+              <summary class="additional-history-card">
+                <div class="history-card-content">
+                  <span class="history-number">03</span>
+                  <h3>Вхождение в структуру КФУ</h3>
+                  <p class="history-preview">Колледж вошел в структуру Крымского федерального университета имени В. И. Вернадского.</p>
+                </div>
+                <span class="history-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="history-expanded">
+                <p>В 2014 году колледж являлся структурным подразделением Таврического национального университета имени В. И. Вернадского. В связи с созданием Крымского федерального университета имени В. И. Вернадского колледж вошел в структуру нового университета.</p>
+              </div>
+            </details>
+          </article>
 
-            <div class="additional-history-card">
-              <span>03</span>
-              <h3>Вхождение в структуру КФУ</h3>
-              <p>
-                Колледж прошёл этап реорганизации и вошёл в структуру
-                Крымского федерального университета имени В. И. Вернадского
-                как подразделение среднего профессионального образования.
-              </p>
-            </div>
+          <article class="additional-history-item">
+            <div class="additional-history-year">Сентябрь 2015</div>
+            <details class="history-details">
+              <summary class="additional-history-card">
+                <div class="history-card-content">
+                  <span class="history-number">04</span>
+                  <h3>Объединение с техникумом</h3>
+                  <p class="history-preview">Колледж был объединен с техникумом издательско-полиграфических технологий.</p>
+                </div>
+                <span class="history-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="history-expanded">
+                <p>В сентябре 2015 года Таврический колледж был объединен с техникумом издательско-полиграфических технологий. В результате в образовательной структуре колледжа получили дальнейшее развитие направления, связанные с издательским делом, полиграфией и дизайном.</p>
+              </div>
+            </details>
           </article>
 
           <article class="additional-history-item">
             <div class="additional-history-year">Сегодня</div>
-
-            <div class="additional-history-card">
-              <span>04</span>
-              <h3>Современное образование</h3>
-              <p>
-                Сегодня колледж предлагает направления подготовки,
-                ориентированные на получение профессиональных знаний
-                и практических компетенций.
-              </p>
-            </div>
+            <details class="history-details">
+              <summary class="additional-history-card">
+                <div class="history-card-content">
+                  <span class="history-number">05</span>
+                  <h3>Современный этап</h3>
+                  <p class="history-preview">Таврический колледж является структурным подразделением КФУ имени В. И. Вернадского.</p>
+                </div>
+                <span class="history-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="history-expanded">
+                <p>В настоящее время Таврический колледж является структурным подразделением федерального государственного автономного образовательного учреждения высшего образования «Крымский федеральный университет имени В. И. Вернадского».</p>
+              </div>
+            </details>
           </article>
-
         </div>
       </section>
-
 
       <!-- Направления подготовки -->
       <section class="additional-section">
@@ -811,6 +1215,599 @@ const specialtiesData = [
       "Подготовка специалистов по разработке визуальных решений, композиции, графике, оформлению и созданию дизайн-проектов."
   }
 ];
+
+// =========================================
+// ПОСТУПЛЕНИЕ — ДАННЫЕ И КАЛЬКУЛЯТОР
+// =========================================
+
+const admissionData = [
+  {
+    code: "09.02.01",
+    title: "Компьютерные системы и комплексы",
+    minScore: 4.263,
+    budgetSeats: 40,
+    contractSeats: 10
+  },
+  {
+    code: "09.02.07",
+    title: "Информационные системы и программирование",
+    minScore: 4.20,
+    budgetSeats: 25,
+    contractSeats: 25
+  },
+  {
+    code: "38.02.02",
+    title: "Страховое дело (по отраслям)",
+    minScore: 4.20,
+    budgetSeats: 15,
+    contractSeats: 10
+  },
+  {
+    code: "38.02.03",
+    title: "Операционная деятельность в логистике",
+    minScore: 4.650,
+    budgetSeats: 15,
+    contractSeats: 35
+  },
+  {
+    code: "38.02.06",
+    title: "Финансы",
+    minScore: 4.61,
+    budgetSeats: 30,
+    contractSeats: 20
+  },
+  {
+    code: "42.02.02",
+    title: "Издательское дело",
+    minScore: 4.45,
+    budgetSeats: 15,
+    contractSeats: 10
+  },
+  {
+    code: "43.02.16",
+    title: "Туризм и гостеприимство",
+    minScore: 4.650,
+    budgetSeats: 25,
+    contractSeats: 25
+  },
+  {
+    code: "54.02.01",
+    title: "Дизайн (по отраслям)",
+    minScore: 4.45,
+    budgetSeats: 10,
+    contractSeats: 15
+  }
+];
+
+
+// Форматирование среднего балла
+function formatAdmissionScore(value) {
+  return Number(value)
+    .toFixed(3)
+    .replace(/0+$/, "")
+    .replace(/\.$/, "")
+    .replace(".", ",");
+}
+
+
+// Расчёт ориентировочной вероятности
+function getAdmissionProbability(score, minScore) {
+  /*
+    ВАЖНО:
+    Это ознакомительная модель, а не реальная статистика.
+
+    При балле, равном минимальному ориентиру,
+    вероятность составляет около 55%, а не 100%.
+
+    Чем выше балл относительно ориентира,
+    тем выше результат.
+  */
+
+  const difference = score - minScore;
+
+  const probability = 55 + difference * 145;
+
+  return Math.max(
+    5,
+    Math.min(95, Math.round(probability))
+  );
+}
+
+
+// Определение цвета результата
+function getProbabilityTone(probability) {
+  if (probability >= 75) return "high";
+  if (probability >= 45) return "medium";
+  return "low";
+}
+
+
+// =========================================
+// ОТРИСОВКА СТРАНИЦЫ «ПОСТУПЛЕНИЕ»
+// =========================================
+
+function renderAdmission() {
+  return `
+    <div class="admission-page">
+
+      <!-- ================= HERO ================= -->
+
+      <section class="admission-hero">
+
+        <div class="admission-hero-content">
+
+          <span class="admission-eyebrow">
+            ПРИЁМНАЯ КАМПАНИЯ
+          </span>
+
+          <h1>
+            Поступление<br />
+            в колледж
+          </h1>
+
+          <p>
+            Узнайте больше о поступлении, сравните свой средний
+            балл аттестата с ориентировочными минимальными баллами
+            и ознакомьтесь с количеством мест по специальностям.
+          </p>
+
+          <div class="admission-hero-points">
+            <span>
+              <b>01</b>
+              Выберите образование
+            </span>
+
+            <span>
+              <b>02</b>
+              Укажите средний балл
+            </span>
+
+            <span>
+              <b>03</b>
+              Получите ориентир
+            </span>
+          </div>
+
+        </div>
+
+        <div class="admission-hero-orbit" aria-hidden="true">
+          <span class="orbit orbit-one"></span>
+          <span class="orbit orbit-two"></span>
+        </div>
+
+      </section>
+
+
+      <!-- ================= КАЛЬКУЛЯТОР ================= -->
+
+      <section class="admission-section admission-calculator-section">
+
+        <div class="admission-section-heading">
+
+          <div>
+            <span class="pill">
+              КАЛЬКУЛЯТОР
+            </span>
+
+            <h2>
+              Оцените свои шансы
+            </h2>
+
+            <p>
+              Введите средний балл аттестата и выберите специальность,
+              чтобы получить ориентировочную вероятность поступления.
+            </p>
+          </div>
+
+          <div class="admission-secure-badge">
+            ⓘ Только для ознакомления
+          </div>
+
+        </div>
+
+
+        <div class="admission-calculator-card">
+
+          <form
+            class="admission-form"
+            id="admissionForm"
+          >
+
+            <!-- Тип аттестата -->
+
+            <div class="admission-field">
+
+              <label for="admissionEducation">
+                Документ об образовании
+              </label>
+
+              <select id="admissionEducation">
+
+                <option value="9">
+                  Аттестат за 9 класс
+                </option>
+
+                <option value="11">
+                  Аттестат за 11 класс
+                </option>
+
+              </select>
+
+              <span class="admission-field-hint">
+                Выберите класс, после которого планируете поступать.
+              </span>
+
+            </div>
+
+
+            <!-- Средний балл -->
+
+            <div class="admission-field">
+
+              <label for="admissionScore">
+                Средний балл аттестата
+              </label>
+
+              <div class="admission-score-input-wrap">
+
+                <input
+                  id="admissionScore"
+                  type="number"
+                  min="2"
+                  max="5"
+                  step="0.001"
+                  placeholder="Например, 4.35"
+                  required
+                />
+
+                <span>
+                  из 5,00
+                </span>
+
+              </div>
+
+              <span class="admission-field-hint">
+                Укажите значение от 2,00 до 5,00.
+              </span>
+
+            </div>
+
+
+            <!-- Специальность -->
+
+            <div class="admission-field admission-field-wide">
+
+              <label for="admissionSpecialty">
+                Предполагаемая специальность
+              </label>
+
+              <select
+                id="admissionSpecialty"
+                required
+              >
+
+                <option value="">
+                  Выберите специальность
+                </option>
+
+                ${admissionData
+                  .map(
+                    (item) => `
+                      <option value="${item.code}">
+                        ${item.code} — ${item.title}
+                      </option>
+                    `
+                  )
+                  .join("")}
+
+              </select>
+
+            </div>
+
+
+            <!-- Кнопка -->
+
+            <button
+              type="submit"
+              class="primary-button admission-submit-button"
+            >
+              Рассчитать вероятность
+              <span>→</span>
+            </button>
+
+          </form>
+
+
+          <!-- Предупреждение -->
+
+          <div class="admission-disclaimer">
+
+            <span class="admission-disclaimer-icon">
+              i
+            </span>
+
+            <p>
+              <strong>Важно:</strong>
+              результаты являются приблизительным ориентиром
+              для ознакомления. Они не гарантируют поступление
+              в колледж и не заменяют официальную информацию
+              приёмной комиссии.
+            </p>
+
+          </div>
+
+
+          <!-- Результат -->
+
+          <div
+            class="admission-result"
+            id="admissionResult"
+            aria-live="polite"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= ТАБЛИЦА ================= -->
+
+      <section class="admission-section">
+
+        <div class="admission-section-heading">
+
+          <div>
+
+            <span class="pill">
+              КОНТРОЛЬНЫЕ ЦИФРЫ ПРИЁМА
+            </span>
+
+            <h2>
+              Специальности и количество мест
+            </h2>
+
+            <p>
+              Количество бюджетных и договорных мест
+              по представленным направлениям.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admission-table-wrap">
+
+          <table class="admission-table">
+
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Специальность</th>
+                <th>Ориентировочный<br />мин. балл</th>
+                <th>Бюджетные<br />места</th>
+                <th>Договорные<br />места</th>
+                <th>Всего</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              ${admissionData
+                .map(
+                  (item) => `
+                    <tr>
+
+                      <td>
+                        <span class="admission-code">
+                          ${item.code}
+                        </span>
+                      </td>
+
+                      <td>
+                        <strong>
+                          ${item.title}
+                        </strong>
+                      </td>
+
+                      <td>
+                        <span class="admission-min-score">
+                          ${formatAdmissionScore(item.minScore)}
+                        </span>
+                      </td>
+
+                      <td>
+                        ${item.budgetSeats}
+                      </td>
+
+                      <td>
+                        ${item.contractSeats}
+                      </td>
+
+                      <td>
+                        <strong>
+                          ${item.budgetSeats + item.contractSeats}
+                        </strong>
+                      </td>
+
+                    </tr>
+                  `
+                )
+                .join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <p class="admission-table-note">
+          * Минимальные баллы указаны как ориентир на основе
+          предоставленных данных и могут изменяться в зависимости
+          от приёмной кампании.
+        </p>
+
+      </section>
+
+    </div>
+  `;
+}
+
+
+// =========================================
+// ОБРАБОТКА КАЛЬКУЛЯТОРА
+// =========================================
+
+function initAdmissionCalculator() {
+
+  const form = document.getElementById("admissionForm");
+  const result = document.getElementById("admissionResult");
+
+  if (!form || !result) return;
+
+
+  form.addEventListener("submit", (event) => {
+
+    event.preventDefault();
+
+
+    const scoreInput =
+      document.getElementById("admissionScore");
+
+    const specialtyInput =
+      document.getElementById("admissionSpecialty");
+
+
+    const score = Number.parseFloat(
+      String(scoreInput.value).replace(",", ".")
+    );
+
+
+    const specialty = admissionData.find(
+      (item) => item.code === specialtyInput.value
+    );
+
+
+    scoreInput.classList.remove("invalid");
+
+
+    // Проверка данных
+
+    if (
+      !Number.isFinite(score) ||
+      score < 2 ||
+      score > 5 ||
+      !specialty
+    ) {
+
+      scoreInput.classList.add("invalid");
+
+      result.innerHTML = `
+        <div class="admission-result-error">
+          Проверьте средний балл и выбранную специальность.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    // Расчёт
+
+    const probability = getAdmissionProbability(
+      score,
+      specialty.minScore
+    );
+
+    const tone = getProbabilityTone(probability);
+
+    const difference = score - specialty.minScore;
+
+
+    const comparisonText = difference >= 0
+      ? `Ваш балл выше ориентира на ${formatAdmissionScore(Math.abs(difference))}.`
+      : `До ориентира не хватает ${formatAdmissionScore(Math.abs(difference))}.`;
+
+
+    // Вывод результата
+
+    result.innerHTML = `
+
+      <div class="admission-result-card ${tone}">
+
+        <div class="admission-result-topline">
+
+          <span class="admission-result-label">
+            ОРИЕНТИРОВОЧНЫЙ РЕЗУЛЬТАТ
+          </span>
+
+          <span class="admission-result-status">
+            ${
+              tone === "high"
+                ? "Высокий ориентир"
+                : tone === "medium"
+                  ? "Средний ориентир"
+                  : "Невысокий ориентир"
+            }
+          </span>
+
+        </div>
+
+
+        <div class="admission-result-main">
+
+          <div>
+
+            <span class="admission-result-specialty">
+              ${specialty.code} · ${specialty.title}
+            </span>
+
+            <h3>
+              Вероятность поступления
+            </h3>
+
+            <p>
+              ${comparisonText}
+              Минимальный ориентир:
+              <strong>
+                ${formatAdmissionScore(specialty.minScore)}
+              </strong>.
+            </p>
+
+          </div>
+
+
+          <div
+            class="admission-probability"
+            aria-label="Вероятность ${probability} процентов"
+          >
+
+            <strong>
+              ${probability}%
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="admission-progress">
+          <span style="width: ${probability}%"></span>
+        </div>
+
+
+        <p class="admission-result-footnote">
+          Расчёт носит ознакомительный характер
+          и не является гарантией зачисления.
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
+}
 
 function renderSpecialties() {
   return `
@@ -1193,6 +2190,17 @@ document.addEventListener("keydown", (event) => {
     document.querySelectorAll(".modal-overlay").forEach((modal) => {
       modal.classList.remove("open");
     });
+    collegeAlbumCloseLightbox();
+  }
+
+  if (collegeAlbumCurrent && event.key === "ArrowLeft") {
+    const lightbox = document.getElementById("collegeAlbumLightbox");
+    if (lightbox?.classList.contains("open")) collegeAlbumLightboxMove(-1);
+  }
+
+  if (collegeAlbumCurrent && event.key === "ArrowRight") {
+    const lightbox = document.getElementById("collegeAlbumLightbox");
+    if (lightbox?.classList.contains("open")) collegeAlbumLightboxMove(1);
   }
 });
 
@@ -1265,6 +2273,11 @@ const searchableContent = [
     title: "Карта колледжа",
     category: "Карта",
     keywords: "карта кабинет корпус этаж"
+  },
+  {
+    title: "Альбом",
+    category: "Главная",
+    keywords: "фото фотографии фотогалерея альбом колледж аудитории внутри"
   }
 ];
 
