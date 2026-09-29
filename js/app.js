@@ -2200,24 +2200,24 @@ const campusPlansData = {
         imgH: 960,
         rooms: [
           /* Верхний левый блок */
-          { id: "6.4", number: "6.4", teacher: "", x: 90, y: 95, w: 75, h: 185 },
-          { id: "6.3", number: "6.3", teacher: "", x: 170, y: 155, w: 75, h: 120 },
+          { id: "6.4", number: "Аудитория 6.4", teacher: "", x: 90, y: 95, w: 75, h: 185 },
+          { id: "6.3", number: "Аудитория 6.3", teacher: "", x: 170, y: 155, w: 75, h: 120 },
           { id: "gym", number: "Спортзал", teacher: "", x: 540, y: 95, w: 325, h: 190, small: true },
 
           /* Левый средний блок */
-          { id: "5.1", number: "5.1", teacher: "", x: 95, y: 390, w: 82, h: 100 },
-          { id: "5.2", number: "5.2", teacher: "", x: 183, y: 390, w: 80, h: 100 },
-          { id: "5.3", number: "5.3", teacher: "", x: 265, y: 390, w: 90, h: 100 },
+          { id: "5.1", number: "Аудитория 5.1", teacher: "", x: 95, y: 390, w: 82, h: 100 },
+          { id: "5.2", number: "Аудитория 5.2", teacher: "", x: 183, y: 390, w: 80, h: 100 },
+          { id: "5.3", number: "Аудитория 5.3", teacher: "", x: 265, y: 390, w: 90, h: 100 },
 
           /* Правый средний блок */
-          { id: "2.4", number: "2.4", teacher: "", x: 850, y: 355, w: 60, h: 85 },
-          { id: "2.3", number: "2.3", teacher: "", x: 910, y: 355, w: 60, h: 85 },
-          { id: "2.2", number: "2.2", teacher: "", x: 980, y: 355, w: 60, h: 85 },
-          { id: "2.1", number: "2.1", teacher: "", x: 1050, y: 355, w:65, h: 85 },
+          { id: "2.4", number: "Аудитория 2.4", teacher: "", x: 850, y: 355, w: 60, h: 85 },
+          { id: "2.3", number: "Аудитория 2.3", teacher: "", x: 910, y: 355, w: 60, h: 85 },
+          { id: "2.2", number: "Аудитория 2.2", teacher: "", x: 980, y: 355, w: 60, h: 85 },
+          { id: "2.1", number: "Аудитория 2.1", teacher: "", x: 1050, y: 355, w:65, h: 85 },
 
           /* Нижний правый блок */
-          { id: "1.2", number: "1.2", teacher: "", x: 896, y: 656, w: 85, h: 95 },
-          { id: "1.1", number: "1.1", teacher: "", x: 1034, y: 658, w: 60, h: 95 }
+          { id: "1.2", number: "Аудитория 1.2", teacher: "", x: 896, y: 656, w: 85, h: 95 },
+          { id: "1.1", number: "Аудитория 1.1", teacher: "", x: 1034, y: 658, w: 60, h: 95 }
         ]
       },
 
@@ -2230,40 +2230,40 @@ const campusPlansData = {
         imgH: 960,
         rooms: [
           /* Верхний левый блок */
-          { id: "6.10", number: "6.10", teacher: "", x: 100, y: 155, w: 73, h: 125 },
-          { id: "6.9", number: "6.9", teacher: "", x: 174, y: 155, w: 70, h: 125 },
+          { id: "6.10", number: "Аудитория 6.10", teacher: "", x: 100, y: 155, w: 73, h: 125 },
+          { id: "6.9", number: "Аудитория 6.9", teacher: "", x: 174, y: 155, w: 70, h: 125 },
 
           /* 6.7 / 6.6 */
-          { id: "6.7", number: "6.7", teacher: "", x: 555, y: 132, w: 135, h: 148 },
-          { id: "6.6", number: "6.6", teacher: "", x: 695, y: 132, w: 165, h: 148 },
+          { id: "6.7", number: "Аудитория 6.7", teacher: "", x: 555, y: 132, w: 135, h: 148 },
+          { id: "6.6", number: "Аудитория 6.6", teacher: "", x: 695, y: 132, w: 165, h: 148 },
 
           /* Левый средний блок */
-          { id: "5.6", number: "5.6", teacher: "", x: 95, y: 390, w: 105, h: 100 },
-          { id: "5.5", number: "5.5", teacher: "", x: 210, y: 390, w: 145, h: 100 },
-          { id: "5.4", number: "5.4", teacher: "", x: 360, y: 285, w: 65, h: 135 },
+          { id: "5.6", number: "Аудитория 5.6", teacher: "", x: 95, y: 390, w: 105, h: 100 },
+          { id: "5.5", number: "Аудитория 5.5", teacher: "", x: 210, y: 390, w: 145, h: 100 },
+          { id: "5.4", number: "Аудитория 5.4", teacher: "", x: 360, y: 285, w: 65, h: 135 },
 
           /* Правый средний блок */
-          { id: "2.8", number: "2.8", teacher: "Федяев М.И.", x: 850, y: 355, w: 70, h: 85 },
-          { id: "2.7", number: "2.7", teacher: "", x: 913, y: 355, w: 70, h: 85 },
-          { id: "2.6", number: "2.6", teacher: "", x: 987, y: 355, w: 70, h: 85 },
-          { id: "2.5", number: "2.5", teacher: "", x: 1060, y: 355, w: 70, h: 85 },
+          { id: "2.8", number: "Кабинет 2.8", teacher: "Федяев М.И.", x: 850, y: 355, w: 70, h: 85 },
+          { id: "2.7", number: "Аудитория 2.7", teacher: "", x: 913, y: 355, w: 70, h: 85 },
+          { id: "2.6", number: "Аудитория 2.6", teacher: "", x: 987, y: 355, w: 70, h: 85 },
+          { id: "2.5", number: "Аудитория 2.5", teacher: "", x: 1060, y: 355, w: 70, h: 85 },
 
           /* Актовый зал */
           { id: "hall", number: "Актовый зал", teacher: "", x: 435, y: 500, w: 200, h: 140, small: true },
-          { id: "3.5", number: "3.5", teacher: "", x: 630, y: 566, w: 60, h: 75 },
-          { id: "3.6", number: "3.6", teacher: "", x: 695, y: 566, w: 60, h: 75 },
+          { id: "3.5", number: "Аудитория 3.5", teacher: "", x: 630, y: 566, w: 60, h: 75 },
+          { id: "3.6", number: "Аудитория 3.6", teacher: "", x: 695, y: 566, w: 60, h: 75 },
 
           /* Нижний левый блок */
-          { id: "4.10", number: "4.10", teacher: "", x: 95, y: 685, w: 40, h: 110 },
-          { id: "4.9", number: "4.9", teacher: "", x: 140, y: 685, w: 40, h: 110 },
-          { id: "4.8", number: "4.8", teacher: "", x: 180, y: 685, w: 40, h: 110 },
-          { id: "4.7", number: "4.7", teacher: "", x: 220, y: 685, w: 40, h: 110 },
-          { id: "4.6", number: "4.6", teacher: "", x: 260, y: 685, w: 70, h: 40 },
+          { id: "4.10", number: "Аудитория 4.10", teacher: "", x: 95, y: 685, w: 40, h: 110 },
+          { id: "4.9", number: "Аудитория 4.9", teacher: "", x: 140, y: 685, w: 40, h: 110 },
+          { id: "4.8", number: "Аудитория 4.8", teacher: "", x: 180, y: 685, w: 40, h: 110 },
+          { id: "4.7", number: "Аудитория 4.7", teacher: "", x: 220, y: 685, w: 40, h: 110 },
+          { id: "4.6", number: "Аудитория 4.6", teacher: "", x: 260, y: 685, w: 70, h: 40 },
 
           /* Нижний правый блок */
-          { id: "1.7", number: "1.7", teacher: "", x: 895, y: 655, w: 50, h: 110 },
-          { id: "1.6", number: "1.6", teacher: "", x: 945, y: 655, w: 50, h: 110 },
-          { id: "1.5", number: "1.5", teacher: "", x: 995, y: 655, w: 50, h: 60 }
+          { id: "1.7", number: "Аудитория 1.7", teacher: "", x: 895, y: 655, w: 50, h: 110 },
+          { id: "1.6", number: "Аудитория 1.6", teacher: "", x: 945, y: 655, w: 50, h: 110 },
+          { id: "1.5", number: "Аудитория  1.5", teacher: "", x: 995, y: 655, w: 50, h: 60 }
         ]
       }
     ]
@@ -2283,18 +2283,18 @@ const campusPlansData = {
         imgH: 640,
         rooms: [
           /* Верхний ряд */
-          { id: "5", number: "5", teacher: "", x: 65, y: 180, w: 205, h: 128 },
-          { id: "11", number: "11", teacher: "", x: 490, y: 180, w: 345, h: 128 },
-          { id: "8", number: "8", teacher: "", x: 1040, y: 180, w: 175, h: 128 },
+          { id: "5", number: "Аудитория 5", teacher: "", x: 65, y: 180, w: 205, h: 128 },
+          { id: "11", number: "Аудитория 11", teacher: "", x: 490, y: 180, w: 345, h: 128 },
+          { id: "8", number: "Аудитория 8", teacher: "", x: 1040, y: 180, w: 175, h: 128 },
 
           /* Нижний ряд */
-          { id: "4", number: "4", teacher: "", x: 65, y: 310, w: 130, h: 140 },
-          { id: "1", number: "1", teacher: "", x: 260, y: 357, w: 85, h: 100, small: true },
-          { id: "7", number: "7", teacher: "", x: 460, y: 357, w: 100, h: 95 },
-          { id: "12", number: "12", teacher: "", x: 560, y: 357, w: 90, h: 95 },
-          { id: "13", number: "13", teacher: "", x: 650, y: 357, w: 200, h: 95 },
-          { id: "10", number: "10", teacher: "", x: 975, y: 357, w: 120, h: 95, small: true },
-          { id: "9", number: "9", teacher: "", x: 1100, y: 310, w: 125, h: 140 }
+          { id: "4", number: "Аудитория 4", teacher: "", x: 65, y: 310, w: 130, h: 140 },
+          { id: "1", number: "Аудитория 1", teacher: "", x: 260, y: 357, w: 85, h: 100, small: true },
+          { id: "7", number: "Аудитория 7", teacher: "", x: 460, y: 357, w: 100, h: 95 },
+          { id: "12", number: "Аудитория 12", teacher: "", x: 560, y: 357, w: 90, h: 95 },
+          { id: "13", number: "Аудитория 13", teacher: "", x: 650, y: 357, w: 200, h: 95 },
+          { id: "10", number: "Аудитория 10", teacher: "", x: 975, y: 357, w: 120, h: 95, small: true },
+          { id: "9", number: "Аудитория 9", teacher: "", x: 1100, y: 310, w: 125, h: 140 }
         ]
       },
 
@@ -2307,22 +2307,22 @@ const campusPlansData = {
         imgH: 640,
         rooms: [
           /* Верхний ряд */
-          { id: "15", number: "15", teacher: "", x: 50, y: 175, w: 210, h: 130 },
-          { id: "15a", number: "15а", teacher: "", x: 265, y: 175, w: 75, h: 90, small: true },
-          { id: "16", number: "16", teacher: "-", x: 340, y: 175, w: 65, h: 90, small: true },
-          { id: "17", number: "17", teacher: "", x: 405, y: 175, w: 240, h: 130 },
-          { id: "23", number: "23", teacher: "", x: 650, y: 175, w: 220, h: 130 },
-          { id: "22", number: "22", teacher: "", x: 870, y: 175, w: 75, h: 130, small: true },
-          { id: "22a", number: "22а", teacher: "", x: 945, y: 175, w: 65, h: 95, small: true },
-          { id: "21", number: "21", teacher: "", x: 1015, y: 175, w: 215, h: 130 },
+          { id: "15", number: "Аудитория 15", teacher: "", x: 50, y: 175, w: 210, h: 130 },
+          { id: "15a", number: "Кабинет 15а", teacher: "", x: 265, y: 175, w: 75, h: 90, small: true },
+          { id: "16", number: "Аудитория 16", teacher: "-", x: 340, y: 175, w: 65, h: 90, small: true },
+          { id: "17", number: "Аудитория 17", teacher: "", x: 405, y: 175, w: 240, h: 130 },
+          { id: "23", number: "Аудитория 23", teacher: "", x: 650, y: 175, w: 220, h: 130 },
+          { id: "22", number: "Аудитория 22", teacher: "", x: 870, y: 175, w: 75, h: 130, small: true },
+          { id: "22a", number: "Кабинет 22а", teacher: "", x: 945, y: 175, w: 65, h: 95, small: true },
+          { id: "21", number: "Аудитория 21", teacher: "", x: 1015, y: 175, w: 215, h: 130 },
 
           /* Нижний ряд */
-          { id: "14", number: "14", teacher: "", x: 50, y: 310, w: 200, h: 120 },
-          { id: "18", number: "18", teacher: "", x: 390, y: 310, w: 255, h: 120 },
-          { id: "24", number: "24", teacher: "", x: 650, y: 310, w: 150, h: 120 },
-          { id: "25", number: "25", teacher: "", x: 800, y: 350, w: 80, h: 80, small: true },
-          { id: "19", number: "19", teacher: "", x: 930, y: 340, w: 85, h: 90 },
-          { id: "20", number: "20", teacher: "", x: 1015, y: 310, w: 215, h: 120 }
+          { id: "14", number: "Аудитория 14", teacher: "", x: 50, y: 310, w: 200, h: 120 },
+          { id: "18", number: "Аудитория 18", teacher: "", x: 390, y: 310, w: 255, h: 120 },
+          { id: "24", number: "Аудитория 24", teacher: "", x: 650, y: 310, w: 150, h: 120 },
+          { id: "25", number: "Аудитория 25", teacher: "", x: 800, y: 350, w: 80, h: 80, small: true },
+          { id: "19", number: "Аудитория 19", teacher: "", x: 930, y: 340, w: 85, h: 90 },
+          { id: "20", number: "Аудитория 20", teacher: "", x: 1015, y: 310, w: 215, h: 120 }
         ]
       }
     ]
@@ -2413,7 +2413,7 @@ function renderFloorPlan(floor) {
           <span>${room.number}</span>
 
           <div class="room-tooltip">
-            <strong>Кабинет ${room.number}</strong>
+            <strong>${room.number}</strong>
             <div class="tooltip-teacher">
               Закреплён за: <span>${room.teacher || "не назначен"}</span>
             </div>
