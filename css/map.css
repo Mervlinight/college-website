@@ -333,14 +333,14 @@
 }
 
 .floor-legend-swatch--room { background: #ded4ea; }
-.floor-legend-swatch--wc { background: #45c56c; }
+.floor-legend-swatch--wc { background: #35ac59; }
 .floor-legend-swatch--stairs {
     background: repeating-linear-gradient(
             45deg, #d9dee7, #d9dee7 3px, #b9c1cf 3px, #b9c1cf 6px
     );
 }
 
-.floor-legend-swatch--dinner { background: #df9581; }
+.floor-legend-swatch--dinner { background: #df8a73; }
 .floor-legend-swatch--tech { background: #7ff5ca; }
 
 /* =========================================
