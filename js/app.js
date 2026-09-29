@@ -2447,8 +2447,12 @@ function renderFloorPlan(floor) {
         Лестница
       </div>
       <div class="floor-legend-item">
+        <span class="floor-legend-swatch floor-legend-swatch--dinner"></span>
+        Столовая
+      </div>
+      <div class="floor-legend-item">
         <span class="floor-legend-swatch floor-legend-swatch--tech"></span>
-        Техническое помещение
+        Другие кабинеты
       </div>
     </div>
   `;
