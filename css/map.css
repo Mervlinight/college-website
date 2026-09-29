@@ -241,7 +241,7 @@
 
 .room-tooltip {
     position: absolute;
-    bottom: calc(100% + 10px);
+    bottom: calc(70% + 10px);
     left: 50%;
     transform: translateX(-50%) translateY(4px);
     min-width: 170px;
