@@ -191,11 +191,11 @@
     background: #8fd0ac;
 }
 
-.room--dining {
+.room--dinner {
     background: #ffffff;
 }
 
-.room--dining:hover {
+.room--dinner:hover {
     background: #f0f4fa;
 }
 
@@ -339,6 +339,8 @@
             45deg, #d9dee7, #d9dee7 3px, #b9c1cf 3px, #b9c1cf 6px
     );
 }
+
+.floor-legend-swatch--dinner { background: #df9581; }
 .floor-legend-swatch--tech { background: #7ff5ca; }
 
 /* =========================================
