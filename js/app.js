@@ -85,7 +85,7 @@ const navigationData = {
     ]
   },
 
-  map: {
+   map: {
     title: "Карта",
     label: "НАВИГАЦИЯ",
     subcategories: [
@@ -101,6 +101,7 @@ const navigationData = {
       }
     ]
   },
+
 
   login: {
     title: "Войти",
@@ -188,7 +189,7 @@ function renderSubNavigation() {
     button.addEventListener("click", () => {
       selectSubcategory(subcategory.id);
     });
-
+    
     subNavigation.appendChild(button);
   });
 }
@@ -256,7 +257,10 @@ function renderCurrentContent() {
     initAdmissionCalculator();
   }
   if (currentSubcategory === "campus-plans") {
-    initCampusPlansInteractivity();
+  initCampusPlansInteractivity();
+  }
+  if (currentSubcategory === "schedule") {
+  initScheduleInteractivity();
   }
 }
 
@@ -2011,27 +2015,6 @@ function renderAnnouncements() {
 // 11. УЧЕБНЫЕ РАЗДЕЛЫ — ЗАГЛУШКИ
 // =========================================
 
-function renderSchedule() {
-  return `
-    <div class="text-block">
-      <span class="pill">УЧЕБНЫЙ ПРОЦЕСС</span>
-      <h1>Расписание</h1>
-      <p>
-        В этом разделе будет реализована таблица расписания
-        с выбором группы, дня недели и учебной недели.
-      </p>
-    </div>
-
-    <div class="placeholder-panel">
-      <div class="placeholder-icon">📅</div>
-      <h3>Модуль расписания готовится</h3>
-      <p>
-        Здесь появится таблица занятий в формате,
-        похожем на Excel: время, дисциплина, преподаватель и кабинет.
-      </p>
-    </div>
-  `;
-}
 
 function renderTeachers() {
   return `
@@ -2385,6 +2368,7 @@ function renderCampusPlansPage() {
   `;
 }
 
+
 /* ---------- Отрисовка плана этажа ---------- */
 
 function renderFloorPlan(floor) {
@@ -2485,6 +2469,7 @@ function initCampusPlansInteractivity() {
     });
   });
 }
+
 
 // =========================================
 // 13. ВХОД
@@ -2627,14 +2612,14 @@ const searchableContent = [
     keywords: "новости объявления мероприятия"
   },
   {
-    title: "Карта колледжа",
+    title: "Яндекс.Карты",
     category: "Карта",
-    keywords: "карта кабинет корпус этаж"
+    keywords: "карта яндекс корпус расположение адрес"
   },
   {
-    title: "Яндекс карты",
+    title: "Карта корпусов",
     category: "Карта",
-    keywords: "карта город маршрут путь яндекс"
+    keywords: "план этаж кабинет схема корпус"
   },
   {
     title: "Альбом",
