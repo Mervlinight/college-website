@@ -95,8 +95,8 @@
     position: absolute;
     box-sizing: border-box;
     background: transparent;
-    border: 2px solid transparent;
-    border-radius: 6px;
+    border: 0px solid transparent;
+    border-radius: 0px;
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease,
     box-shadow 0.15s ease, transform 0.15s ease;
@@ -114,7 +114,7 @@
 .room:hover {
     background: rgba(47, 111, 237, 0.18);
     border-color: #2f6fed;
-    box-shadow: 0 0 0 2px rgba(47, 111, 237, 0.25),
+    box-shadow: 0 0 0 0px rgba(47, 111, 237, 0.25),
     0 10px 22px rgba(24, 34, 48, 0.25);
     transform: translateY(-1px);
     z-index: 30;
@@ -128,8 +128,8 @@
 
 .room:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(24, 34, 48, 0.25);
-    background: #cfc2e6;
+    box-shadow: 0 0px 0px rgba(24, 34, 48, 0.25);
+    background: #cfc2e610;
     z-index: 30;
 }
 
@@ -333,13 +333,13 @@
 }
 
 .floor-legend-swatch--room { background: #ded4ea; }
-.floor-legend-swatch--wc { background: #a8dcc0; }
+.floor-legend-swatch--wc { background: #45c56c; }
 .floor-legend-swatch--stairs {
     background: repeating-linear-gradient(
             45deg, #d9dee7, #d9dee7 3px, #b9c1cf 3px, #b9c1cf 6px
     );
 }
-.floor-legend-swatch--tech { background: #f0e2b8; }
+.floor-legend-swatch--tech { background: #7ff5ca; }
 
 /* =========================================
    ЯНДЕКС.КАРТЫ
